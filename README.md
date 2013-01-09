@@ -8,6 +8,8 @@ ZeroBin is a minimalist, opensource online pastebin where the server
 has zero knowledge of pasted data. Data is encrypted/decrypted in the 
 browser using 256 bits AES. 
 
+![Zerobin Text Screenshot](https://raw.github.com/wiki/mattrude/ZeroBin/images/zerobin_present_textshare.png)
+
 More information on the project page: _http://sebsauvage.net/wiki/doku.php?id=php:zerobin_
 
 ## Features
@@ -70,6 +72,34 @@ More information on the project page: _http://sebsauvage.net/wiki/doku.php?id=ph
 * Users still have to trust the server regarding the respect of their privacy. ZeroBin won't protect the users against malicious servers.
 * Won't protect against Man-in-the-middle attacks (eg. javascript substitution)
 * Shitty look in Internet Explorer (but who cares?)
+
+## How does it work?
+
+When **pasting a text into ZeroBin**:
+
+![Zerobin Encryption](https://raw.github.com/wiki/mattrude/ZeroBin/images/zerobin_figure_encryption.png)
+
+* You paste your text in the browser and click the “Send” button.
+* A random 256 bits key is generated in the browser.
+* Data is compressed and encrypted with AES using specialized javascript libraries.
+* Encrypted data is sent to server and stored.
+* The browser displays the final URL with the key.
+* The key is never transmitted to the server, which therefore cannot decrypt data.
+
+When **opening a ZeroBin URL**:
+
+![zerobin decryption](https://raw.github.com/wiki/mattrude/ZeroBin/images/zerobin_figure_decryption.png)
+
+* The browser requests encrypted data from the server
+* The decryption key is in the anchor part of the URL (#…) which is never sent to server.
+* Data is decrypted in the browser using the key and displayed.
+
+### Sample URL
+
+If you have a URL like: http://example.com/?7a5dd0979f712164#QdnCROuH9ebUXv3oBjBw3eOdb3y9p5nEAkUJZBxg=
+
+* **7a5dd0979f712164** is the paste identifier.
+* **QdnCROuH9ebUXv3oBjBw3eOdb3y9p5nEAkUJZBxg=** is the decryption key. It is never sent to the server.
 
 ## License
 
