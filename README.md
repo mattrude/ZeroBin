@@ -10,7 +10,7 @@ browser using 256 bits AES.
 
 ![Zerobin Text Screenshot](https://raw.github.com/wiki/mattrude/ZeroBin/images/zerobin_present_textshare.png)
 
-More information on the project page: _http://sebsauvage.net/wiki/doku.php?id=php:zerobin_
+* _More information may be found in the project's [wiki](https://github.com/mattrude/ZeroBin/wiki), or within it's [changelog](https://github.com/mattrude/ZeroBin/blob/master/CHANGELOG.md)._
 
 ## Features
 
@@ -103,7 +103,7 @@ If you have a URL like: http://example.com/?7a5dd0979f712164#QdnCROuH9ebUXv3oBjB
 
 ## License
 
-
+    Copyright (c) 2013 Matt Rude (mattrude.com)
     Copyright (c) 2012 Sébastien SAUVAGE (sebsauvage.net)
 
     This software is provided 'as-is', without any express or implied warranty.
