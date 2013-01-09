@@ -11,6 +11,7 @@ browser using 256 bits AES.
 ![Zerobin Text Screenshot](https://raw.github.com/wiki/mattrude/ZeroBin/images/zerobin_present_textshare.png)
 
 * _More information may be found in the project's [wiki](https://github.com/mattrude/ZeroBin/wiki), or within it's [changelog](https://github.com/mattrude/ZeroBin/blob/master/CHANGELOG.md)._
+* [Screen Shots](https://github.com/mattrude/ZeroBin/wiki/Screen-Shots) are also avalable, so you can see what ZoneBin looks like.
 
 ## Features
 
