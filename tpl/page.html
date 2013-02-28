@@ -1,14 +1,17 @@
 <html>
 <head>
 <title>ZeroBin</title>
+<meta name="robots" content="noindex" />
 <link rel="icon" type="image/x-icon" href="https://7d163f36d511983a1188-929658b0944547301859e96d854d0f99.ssl.cf1.rackcdn.com/zerobin/favicon.png" />
-<link type="text/css" rel="stylesheet" href="https://7d163f36d511983a1188-929658b0944547301859e96d854d0f99.ssl.cf1.rackcdn.com/zerobin/css/zerobin.css?{$VERSION|rawurlencode}#" /> 
-<script src="https://7d163f36d511983a1188-929658b0944547301859e96d854d0f99.ssl.cf1.rackcdn.com/zerobin/js/jquery.js#"></script>
-<script src="https://7d163f36d511983a1188-929658b0944547301859e96d854d0f99.ssl.cf1.rackcdn.com/zerobin/js/sjcl.js#"></script>
-<script src="https://7d163f36d511983a1188-929658b0944547301859e96d854d0f99.ssl.cf1.rackcdn.com/zerobin/js/base64.js#"></script>
-<script src="https://7d163f36d511983a1188-929658b0944547301859e96d854d0f99.ssl.cf1.rackcdn.com/zerobin/js/rawdeflate.js#"></script>
-<script src="https://7d163f36d511983a1188-929658b0944547301859e96d854d0f99.ssl.cf1.rackcdn.com/zerobin/js/rawinflate.js#"></script>
-<script src="https://7d163f36d511983a1188-929658b0944547301859e96d854d0f99.ssl.cf1.rackcdn.com/zerobin/js/zerobin.js?{$VERSION|rawurlencode}#"></script>
+<link type="text/css" rel="stylesheet" href="https://7d163f36d511983a1188-929658b0944547301859e96d854d0f99.ssl.cf1.rackcdn.com/zerobin/css/zerobin.css" /> 
+<link type="text/css" rel="stylesheet" href="https://7d163f36d511983a1188-929658b0944547301859e96d854d0f99.ssl.cf1.rackcdn.com/zerobin/js/highlight.styles/monokai.css">
+<script src="https://7d163f36d511983a1188-929658b0944547301859e96d854d0f99.ssl.cf1.rackcdn.com/zerobin/js/jquery.js"></script>
+<script src="https://7d163f36d511983a1188-929658b0944547301859e96d854d0f99.ssl.cf1.rackcdn.com/zerobin/js/sjcl.js"></script>
+<script src="https://7d163f36d511983a1188-929658b0944547301859e96d854d0f99.ssl.cf1.rackcdn.com/zerobin/js/base64.js"></script>
+<script src="https://7d163f36d511983a1188-929658b0944547301859e96d854d0f99.ssl.cf1.rackcdn.com/zerobin/js/rawdeflate.js"></script>
+<script src="https://7d163f36d511983a1188-929658b0944547301859e96d854d0f99.ssl.cf1.rackcdn.com/zerobin/js/rawinflate.js"></script>
+<script src="https://7d163f36d511983a1188-929658b0944547301859e96d854d0f99.ssl.cf1.rackcdn.com/zerobin/js/zerobin.js"></script>
+<script src="https://7d163f36d511983a1188-929658b0944547301859e96d854d0f99.ssl.cf1.rackcdn.com/zerobin/js/highlight.pack.js"></script>
 
 <!--[if lt IE 10]>
 <style> body {padding-left:60px;padding-right:60px;} div#ienotice {display:block;} </style>
@@ -38,18 +41,20 @@
         <a href="http://www.google.com/chrome">Chrome</a>, 
         <a href="http://www.apple.com/safari">Safari</a>...
     </div>
-    <div id="status">&nbsp;</div>
+    <div id="status">{$STATUS}</div>
     <div id="errormessage" style="display:none">{$ERRORMESSAGE|htmlspecialchars}</div>
     <div id="toolbar">
     <button id="newbutton" onclick="window.location.href=scriptLocation();return false;" style="display:none;"><img src="https://7d163f36d511983a1188-929658b0944547301859e96d854d0f99.ssl.cf1.rackcdn.com/zerobin/img/icon_new.png#" width="11" height="15" />New</button>
     <button id="sendbutton" onclick="send_data();return false;" style="display:none;"><img src="https://7d163f36d511983a1188-929658b0944547301859e96d854d0f99.ssl.cf1.rackcdn.com/zerobin/img/icon_send.png#" width="18" height="15" />Send</button>
     <button id="clonebutton" onclick="clonePaste();return false;" style="display:none;"><img src="https://7d163f36d511983a1188-929658b0944547301859e96d854d0f99.ssl.cf1.rackcdn.com/zerobin/img/icon_clone.png#" width="15" height="17" />Clone</button>
-      <div id="expiration" style="display:none;">Expire: 
+    <button id="rawtextbutton" onclick="rawText();return false;" style="display:none; "><img src="https://7d163f36d511983a1188-929658b0944547301859e96d854d0f99.ssl.cf1.rackcdn.com/zerobin/img/icon_raw.png#" width="15" height="15" style="padding:1px 0px 1px 0px;"/>Raw text</button>
+      <div id="expiration" style="display:none;">Expires: 
       <select id="pasteExpiration" name="pasteExpiration">
-        <option value="burn">Burn after reading</option>
+        <option value="5min">5 minutes</option>
         <option value="10min">10 minutes</option>
         <option value="1hour">1 hour</option>
         <option value="1day">1 day</option>
+        <option value="1week">1 week</option>
         <option value="1month" selected="selected">1 month</option>
         <option value="6month">6 months</option>
         <option value="9month">9 months</option>
@@ -60,21 +65,23 @@
       </select>
       </div>
       <div id="remainingtime" style="display:none;"></div>
-      <div id="language" style="display:none;">
-      <select name="language">
-        <option value="language" selected="selected">Language</option>
-        <option value="C/C++">C/C++</option>
-        <option value="php">php</option>
-        <option value="python">Python</option>
-      </select>
+      <div id="burnafterreadingoption" class="button" style="display:none;">
+         <input type="checkbox" id="burnafterreading" name="burnafterreading" />
+         <label for="burnafterreading">Burn after reading</label>
       </div>
-        <input id="password" value="Optional password..." style="display:none;" />
-        <div id="opendisc" class="button" style="display:none;">
-           <input type="checkbox" id="opendiscussion" name="opendiscussion" />
-           <label for="opendiscussion">Open discussion</label>
-        </div>
+      <div id="opendisc" class="button" style="display:none;">
+         <input type="checkbox" id="opendiscussion" name="opendiscussion" />
+         <label for="opendiscussion">Open discussion</label>
+      </div>
+      <div id="syntaxcoloringoption" class="button" style="display:none;">
+         <input type="checkbox" id="syntaxcoloring" name="syntaxcoloring" />
+         <label for="syntaxcoloring">Syntax coloring</label>
+      </div>
     </div>
-    <div id="pastelink" style="display:none;"></div>
+    <div id="pasteresult" style="display:none;">
+      <div id="deletelink"></div>
+      <div id="pastelink"></div>
+    </div>
     <div id="cleartext" style="display:none;"></div>
     <textarea id="message" name="message" cols="80" rows="25" style="display:none;"></textarea>
     <div id="discussion" style="display:none;">

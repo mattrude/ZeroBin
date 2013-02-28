@@ -37,4 +37,31 @@
   * **Alpha 0.15 (2012-04-20):**
     * FIXED: 2 minor corrections to avoid notices in php log.
     * FIXED: Sources converted to UTF-8.
+  * **Alpha 0.15 (2012-04-20):**
+    * FIXED: 2 minor corrections to avoid notices in php log.
+    * FIXED: Sources converted to UTF-8.
+  * **Alpha 0.16**:
+    * FIXED minor php warnings.
+    * FIXED: zerobin.js reformated and properly commented.
+    * FIXED: Directory structure re-organized.
+    * CHANGED: URL shortening button was removed. (It was bad for privacy.)
+  * **Alpha 0.17 (2013-02-23)**:
+    * ADDED: Deletion URL.
+    * small refactoring.
+    * improved regex checks.
+    * larger server alt on installation.    
+  * **Alpha 0.18 (2013-02-24)**:
+    * ADDED: The resulting URL is automatically selected after pressing "Send". You just have to press CTRL+C.
+    * ADDED: Automatic syntax highlighting for 53 languages using highlight.js
+    * ADDED: "5 minutes" and "1 week" expirations.
+    * ADDED: "Raw text" button.
+    * jQuery upgraded to 1.9.1
+    * sjcl upgraded to GitHub master 2013-02-23
+    * base64.js upgraded to 1.7
+    * FIXED: Dates in discussion are now proper local dates.
+    * ADDED: Robot meta tags in HTML to prevent search engines indexing.
+    * ADDED: Better json checking (including entropy).
+    * ADDED: Added version to js/css assets URLs in order to prevent some abusive caches to serve an obsolete version of these files when ZeroBin is upgraded.
+    * "Burn after reading" option has been moved out of Expiration combo to a separate checkbox. Reason is: You can prevent a read-once paste to be available ad vitam eternam on the net.
+
 

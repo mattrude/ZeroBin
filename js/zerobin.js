@@ -1,5 +1,5 @@
 /**
- * ZeroBin 0.15
+ * ZeroBin 0.18
  *
  * @link http://sebsauvage.net/wiki/doku.php?id=php:zerobin
  * @author sebsauvage
@@ -22,6 +22,69 @@ function secondsToHuman(seconds)
     // If less than 2 months, display in days:
     if (seconds<60*60*24*60) { var v=Math.floor(seconds/(60*60*24)); return v+' day'+((v>1)?'s':''); }
     var v=Math.floor(seconds/(60*60*24*30)); return v+' month'+((v>1)?'s':'');
+}
+
+/**
+ * Converts an associative array to an encoded string
+ * for appending to the anchor.
+ *
+ * @param object associative_array Object to be serialized
+ * @return string
+ */
+function hashToParameterString(associativeArray)
+{
+  var parameterString = ""
+  for (key in associativeArray)
+  {
+    if( parameterString === "" )
+    {
+      parameterString = encodeURIComponent(key);
+      parameterString += "=" + encodeURIComponent(associativeArray[key]);
+    } else {
+      parameterString += "&" + encodeURIComponent(key);
+      parameterString += "=" + encodeURIComponent(associativeArray[key]);
+    }
+  }
+  //padding for URL shorteners
+  parameterString += "&p=p";
+  
+  return parameterString;
+}
+
+/**
+ * Converts a string to an associative array.
+ *
+ * @param string parameter_string String containing parameters
+ * @return object
+ */
+function parameterStringToHash(parameterString)
+{
+  var parameterHash = {};
+  var parameterArray = parameterString.split("&");
+  for (var i = 0; i < parameterArray.length; i++) {
+    //var currentParamterString = decodeURIComponent(parameterArray[i]);
+    var pair = parameterArray[i].split("=");
+    var key = decodeURIComponent(pair[0]);
+    var value = decodeURIComponent(pair[1]);
+    parameterHash[key] = value;
+  }
+  
+  return parameterHash;
+}
+
+/**
+ * Get an associative array of the parameters found in the anchor
+ *
+ * @return object
+ **/
+function getParameterHash()
+{
+  var hashIndex = window.location.href.indexOf("#");
+  if (hashIndex >= 0) {
+    return parameterStringToHash(window.location.href.substring(hashIndex + 1));
+  } else {
+    return {};
+  } 
 }
 
 /**
@@ -67,8 +130,13 @@ function zeroDecipher(key, data) {
  *   eg. http://server.com/zero/?aaaa#bbbb --> http://server.com/zero/
  */
 function scriptLocation() {
-    return window.location.href.substring(0,window.location.href.length
-               -window.location.search.length -window.location.hash.length);
+  var scriptLocation = window.location.href.substring(0,window.location.href.length
+    - window.location.search.length - window.location.hash.length);
+  var hashIndex = scriptLocation.indexOf("#");
+  if (hashIndex !== -1) {
+    scriptLocation = scriptLocation.substring(0, hashIndex)
+  }
+  return scriptLocation
 }
 
 /**
@@ -88,7 +156,7 @@ function pasteID() {
 function setElementText(element, text) {
     // For IE<10.
     if ($('div#oldienotice').is(":visible")) {
-        // IE<10 do not support white-space:pre-wrap; so we have to do this BIG UGLY STINKING THING.
+        // IE<10 does not support white-space:pre-wrap; so we have to do this BIG UGLY STINKING THING.
         element.text(text.replace(/\n/ig,'{BIG_UGLY_STINKING_THING__OH_GOD_I_HATE_IE}'));
         element.html(element.text().replace(/{BIG_UGLY_STINKING_THING__OH_GOD_I_HATE_IE}/ig,"\r\n<br>"));
     }
@@ -97,6 +165,20 @@ function setElementText(element, text) {
         element.text(text);
     }
 }
+
+/** Apply syntax coloring to clear text area.
+  */
+function applySyntaxColoring()
+{
+    if ($('div#cleartext').html().substring(0,11) != '<pre><code>')
+    {
+        // highlight.js expects code to be surrounded by <pre><code>
+        $('div#cleartext').html('<pre><code>'+ $('div#cleartext').html()+'</code></pre>');
+    }
+    hljs.highlightBlock(document.getElementById('cleartext'));
+    $('div#cleartext').css('padding','0'); // Remove white padding around code box.
+}
+
 
 /**
  * Show decrypted text in the display area, including discussion (if open)
@@ -115,6 +197,10 @@ function displayMessages(key, comments) {
     }
     setElementText($('div#cleartext'), cleartext);
     urls2links($('div#cleartext')); // Convert URLs to clickable links.
+
+    // comments[0] is the paste itself.
+
+    if (comments[0].meta.syntaxcoloring) applySyntaxColoring();
 
     // Display paste expiration.
     if (comments[0].meta.expire_date) $('div#remainingtime').removeClass('foryoureyesonly').text('This document will expire in '+secondsToHuman(comments[0].meta.remaining_time)+'.').show();
@@ -154,7 +240,7 @@ function displayMessages(key, comments) {
             try {
                 divComment.find('span.nickname').text(zeroDecipher(key, comment.meta.nickname));
             } catch(err) { }
-            divComment.find('span.commentdate').text('  ('+(new Date(comment.meta.postdate*1000).toUTCString())+')').attr('title','CommentID: ' + comment.meta.commentid);
+            divComment.find('span.commentdate').text('  ('+(new Date(comment.meta.postdate*1000).toString())+')').attr('title','CommentID: ' + comment.meta.commentid);
 
             // If an avatar is available, display it.
             if (comment.meta.vizhash) {
@@ -231,6 +317,7 @@ function send_comment(parentid) {
         });
     }
 
+
 /**
  *  Send a new paste to server
  */
@@ -239,12 +326,24 @@ function send_data() {
     if ($('textarea#message').val().length == 0) {
         return;
     }
+
+    // If sjcl has not collected enough entropy yet, display a message.
+    if (!sjcl.random.isReady())
+    {
+        showStatus('Sending paste (Please move your mouse for more entropy)...', spin=true);
+        sjcl.random.addEventListener('seeded', function(){ send_data(); }); 
+        return; 
+    }
+    
     showStatus('Sending paste...', spin=true);
+
     var randomkey = sjcl.codec.base64.fromBits(sjcl.random.randomWords(8, 0), 0);
     var cipherdata = zeroCipher(randomkey, $('textarea#message').val());
     var data_to_send = { data:           cipherdata,
                          expire:         $('select#pasteExpiration').val(),
-                         opendiscussion: $('input#opendiscussion').is(':checked') ? 1 : 0
+                         burnafterreading: $('input#burnafterreading').is(':checked') ? 1 : 0,
+                         opendiscussion: $('input#opendiscussion').is(':checked') ? 1 : 0,
+                         syntaxcoloring: $('input#syntaxcoloring').is(':checked') ? 1 : 0
                        };
     $.post(scriptLocation(), data_to_send, 'json')
         .error(function() {
@@ -254,10 +353,20 @@ function send_data() {
             if (data.status == 0) {
                 stateExistingPaste();
                 var url = scriptLocation() + "?" + data.id + '#' + randomkey;
+                var deleteUrl = scriptLocation() + "?pasteid=" + data.id + '&deletetoken=' + data.deletetoken;
                 showStatus('');
-                $('div#pastelink').html('Your paste is <a href="' + url + '">' + url + '</a>').show();
+
+                $('div#pastelink').html('Your paste is <a id="pasteurl" href="' + url + '">' + url + '</a> <span id="copyhint">(Hit CTRL+C to copy)</span>');
+                $('div#deletelink').html('<a href="' + deleteUrl + '">Delete link</a>');
+                $('div#pasteresult').show();
+                selectText('pasteurl'); // We pre-select the link so that the user only has to CTRL+C the link.
+
                 setElementText($('div#cleartext'), $('textarea#message').val());
                 urls2links($('div#cleartext'));
+
+                // FIXME: Add option to remove syntax highlighting ?
+                if ($('input#syntaxcoloring').is(':checked')) applySyntaxColoring();
+
                 showStatus('');
             }
             else if (data.status==1) {
@@ -269,19 +378,42 @@ function send_data() {
         });
 }
 
+
+/** Text range selection.
+ *  From: http://stackoverflow.com/questions/985272/jquery-selecting-text-in-an-element-akin-to-highlighting-with-your-mouse
+ *  @param string element : Indentifier of the element to select (id="").
+ */
+function selectText(element) {
+    var doc = document
+        , text = doc.getElementById(element)
+        , range, selection
+    ;    
+    if (doc.body.createTextRange) { //ms
+        range = doc.body.createTextRange();
+        range.moveToElementText(text);
+        range.select();
+    } else if (window.getSelection) { //all others
+        selection = window.getSelection();        
+        range = doc.createRange();
+        range.selectNodeContents(text);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+}
 /**
  * Put the screen in "New paste" mode.
  */
 function stateNewPaste() {
     $('button#sendbutton').show();
     $('button#clonebutton').hide();
+    $('button#rawtextbutton').hide();
     $('div#expiration').show();
     $('div#remainingtime').hide();
-    $('div#language').hide(); // $('#language').show();
-    $('input#password').hide(); //$('#password').show();
+    $('div#burnafterreadingoption').show();
     $('div#opendisc').show();
+    $('div#syntaxcoloringoption').show();
     $('button#newbutton').show();
-    $('div#pastelink').hide();
+    $('div#pasteresult').hide();
     $('textarea#message').text('');
     $('textarea#message').show();
     $('div#cleartext').hide();
@@ -302,15 +434,27 @@ function stateExistingPaste() {
     else {
         $('button#clonebutton').show();
     }
+    $('button#rawtextbutton').show();
 
     $('div#expiration').hide();
-    $('div#language').hide();
-    $('input#password').hide();
+    $('div#burnafterreadingoption').hide();
     $('div#opendisc').hide();
+    $('div#syntaxcoloringoption').hide();    
     $('button#newbutton').show();
-    $('div#pastelink').hide();
+    $('div#pasteresult').hide();
     $('textarea#message').hide();
     $('div#cleartext').show();
+}
+
+/** Return raw text
+  */
+function rawText()
+{
+    history.pushState(document.title, document.title, 'document.txt');
+    var paste = $('div#cleartext').text();
+    var newDoc = document.open('text/plain', 'replace');
+    newDoc.write(paste);
+    newDoc.close();
 }
 
 /**
@@ -318,6 +462,10 @@ function stateExistingPaste() {
  */
 function clonePaste() {
     stateNewPaste();
+    
+    //Erase the id and the key in url
+    history.replaceState(document.title, document.title, scriptLocation());
+    
     showStatus('');
     $('textarea#message').text($('div#cleartext').text());
 }
@@ -351,11 +499,11 @@ function showStatus(message, spin) {
     $('div#replystatus').removeClass('errorMessage');
     $('div#replystatus').text(message);
     if (!message) {
-        $('div#status').html('&nbsp');
+        $('div#status').html('&nbsp;');
         return;
     }
     if (message == '') {
-        $('div#status').html('&nbsp');
+        $('div#status').html('&nbsp;');
         return;
     }
     $('div#status').removeClass('errorMessage');
@@ -409,9 +557,12 @@ function pageKey() {
 }
 
 $(function() {
-    $('select#pasteExpiration').change(function() {
-        if ($(this).val() == 'burn') {
+
+    // If "burn after reading" is checked, disable discussion.
+    $('input#burnafterreading').change(function() {
+        if ($(this).is(':checked') ) { 
             $('div#opendisc').addClass('buttondisabled');
+            $('input#opendiscussion').attr({checked: false});
             $('input#opendiscussion').attr('disabled',true);
         }
         else {
@@ -420,6 +571,13 @@ $(function() {
         }
     });
 
+    // Display status returned by php code if any (eg. Paste was properly deleted.)
+    if ($('div#status').text().length > 0) {
+        showStatus($('div#status').text(),false);
+        return;
+    }
+
+    $('div#status').html('&nbsp;'); // Keep line height even if content empty.
 
     // Display an existing paste
     if ($('div#cipherdata').text().length > 1) {

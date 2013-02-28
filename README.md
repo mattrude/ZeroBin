@@ -1,6 +1,6 @@
 # ZeroBin 
 
-Version: **0.15 Alpha**
+Version: **0.18 Alpha**
 
 **THIS IS ALPHA SOFTWARE - USE AT YOUR OWN RISKS**
 
