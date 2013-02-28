@@ -104,8 +104,8 @@ If you have a URL like: http://example.com/?7a5dd0979f712164#QdnCROuH9ebUXv3oBjB
 
 ## License
 
+    Copyright (c) 2013 Sébastien SAUVAGE (sebsauvage.net)
     Copyright (c) 2013 Matt Rude (mattrude.com)
-    Copyright (c) 2012 Sébastien SAUVAGE (sebsauvage.net)
 
     This software is provided 'as-is', without any express or implied warranty.
     In no event will the authors be held liable for any damages arising from 
