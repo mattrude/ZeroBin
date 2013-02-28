@@ -8,7 +8,7 @@ ZeroBin is a minimalist, opensource online pastebin where the server
 has zero knowledge of pasted data. Data is encrypted/decrypted in the 
 browser using 256 bits AES. 
 
-![Zerobin Text Screenshot](https://raw.github.com/wiki/mattrude/ZeroBin/images/zerobin_present_textshare.png)
+![Zerobin Text Screenshot](https://raw.github.com/wiki/mattrude/mdrZeroBin/images/zerobin_present_textshare.png)
 
 * _More information may be found in the project's [wiki](https://github.com/mattrude/ZeroBin/wiki), or within it's [changelog](https://github.com/mattrude/ZeroBin/blob/master/CHANGELOG.md#zerobin-version-history)._
 * [Screen Shots](https://github.com/mattrude/ZeroBin/wiki/Screen-Shots) are also avalable, so you can see what ZeroBin looks like.
@@ -22,12 +22,15 @@ browser using 256 bits AES.
 * Data compressed and encrypted in the browser before sending to server. Uses 256 bits AES.
 * Server has zero knowledge of data being stored. Your data is safe even in case of server breach or seizure.1)
 * Expiration: 10 minutes, 1 hour, 1 day, 1 month, 1 year, never or ”Burn after reading” (Destroyed when read).
+* Syntax coloring for 54 languages (using [highlight.js](http://softwaremaniacs.org/soft/highlight/en/)), supporting mixing (html/css/javascript).
 * Automatic conversion of URLs into clickable links (http, https, ftp and magnet).
 * Search engines are blind regarding paste content.
 * Single button to clone an existing paste.
 * Rate limiting: 10 seconds between each paste.
 * Size limiting: 2 Mb per paste (of compressed and encrypted data - cleartext data can be larger).
-* Discussions:
+ 
+**Discussions:**
+
 * You can enable discussion on each paste.
 * Discussion is of course also encrypted/decrypted in the browser.
 * Server cannot see comments content or nicknames.
@@ -78,7 +81,7 @@ browser using 256 bits AES.
 
 When **pasting a text into ZeroBin**:
 
-![Zerobin Encryption](https://raw.github.com/wiki/mattrude/ZeroBin/images/zerobin_figure_encryption.png)
+![Zerobin Encryption](https://raw.github.com/wiki/mattrude/mdrZeroBin/images/zerobin_figure_encryption.png)
 
 * You paste your text in the browser and click the “Send” button.
 * A random 256 bits key is generated in the browser.
@@ -89,7 +92,7 @@ When **pasting a text into ZeroBin**:
 
 When **opening a ZeroBin URL**:
 
-![zerobin decryption](https://raw.github.com/wiki/mattrude/ZeroBin/images/zerobin_figure_decryption.png)
+![zerobin decryption](https://raw.github.com/wiki/mattrude/mdrZeroBin/images/zerobin_figure_decryption.png)
 
 * The browser requests encrypted data from the server
 * The decryption key is in the anchor part of the URL (#…) which is never sent to server.
