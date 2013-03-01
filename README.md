@@ -8,7 +8,7 @@ ZeroBin is a minimalist, opensource online pastebin where the server
 has zero knowledge of pasted data. Data is encrypted/decrypted in the 
 browser using 256 bits AES. 
 
-![Zerobin Text Screenshot](https://raw.github.com/wiki/mattrude/mdrZeroBin/images/zerobin_present_textshare.png)
+![Zerobin Text Screenshot](https://raw.github.com/wiki/mattrude/ZeroBin/images/zerobin_present_textshare.png)
 
 * _More information may be found in the project's [wiki](https://github.com/mattrude/ZeroBin/wiki), or within it's [changelog](https://github.com/mattrude/ZeroBin/blob/master/CHANGELOG.md#zerobin-version-history)._
 * [Screen Shots](https://github.com/mattrude/ZeroBin/wiki/Screen-Shots) are also avalable, so you can see what ZeroBin looks like.
@@ -81,7 +81,7 @@ browser using 256 bits AES.
 
 When **pasting a text into ZeroBin**:
 
-![Zerobin Encryption](https://raw.github.com/wiki/mattrude/mdrZeroBin/images/zerobin_figure_encryption.png)
+![Zerobin Encryption](https://raw.github.com/wiki/mattrude/ZeroBin/images/zerobin_figure_encryption.png)
 
 * You paste your text in the browser and click the “Send” button.
 * A random 256 bits key is generated in the browser.
@@ -92,7 +92,7 @@ When **pasting a text into ZeroBin**:
 
 When **opening a ZeroBin URL**:
 
-![zerobin decryption](https://raw.github.com/wiki/mattrude/mdrZeroBin/images/zerobin_figure_decryption.png)
+![zerobin decryption](https://raw.github.com/wiki/mattrude/ZeroBin/images/zerobin_figure_decryption.png)
 
 * The browser requests encrypted data from the server
 * The decryption key is in the anchor part of the URL (#…) which is never sent to server.
