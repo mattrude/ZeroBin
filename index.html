@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!-- This page was created with the build-github-pages.sh script found at 
+	 https://github.com/mattrude/mattrude.github.com for 
+	 http://gh.mattrude.com -->
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>gh.mattrude.com / ZeroBin </title>
+	<link rel="stylesheet" type="text/css" href="http://mattrude.github.com/style.css" />
+	<link rel="icon" href="http://github.com/favicon.ico" type="image/x-icon" />
+    <script type="text/javascript">
+    
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-9532791-7']);
+      _gaq.push(['_trackPageview']);
+    
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    
+    </script>
+</head>
+<body>
+<div id="content"><div id="primary" class="main">
+<!-- Finished Header Section -->
+<div id="title"><h1>ZeroBin  <i> &mdash; </i> gh.mattrude.com</h1></div><div id="breadcrums"><p><a href="/">gh.mattrude.com</a> / <strong>ZeroBin </strong></p></div>
+
+<p>Version: <strong>0.18 Alpha</strong></p>
+
+<p><strong>THIS IS ALPHA SOFTWARE - USE AT YOUR OWN RISKS</strong></p>
+
+<p>ZeroBin is a minimalist, opensource online pastebin where the server 
+has zero knowledge of pasted data. Data is encrypted/decrypted in the 
+browser using 256 bits AES. </p>
+
+<p><img src="https://raw.github.com/wiki/mattrude/ZeroBin/images/zerobin_present_textshare.png" alt="Zerobin Text Screenshot" title="" /></p>
+
+<ul>
+<li><em>More information may be found in the project's <a href="https://github.com/mattrude/ZeroBin/wiki">wiki</a>, or within it's <a href="https://github.com/mattrude/ZeroBin/blob/master/CHANGELOG.md#zerobin-version-history">changelog</a>.</em></li>
+<li><a href="https://github.com/mattrude/ZeroBin/wiki/Screen-Shots">Screen Shots</a> are also avalable, so you can see what ZeroBin looks like.</li>
+</ul>
+
+<h2>Features</h2>
+
+<ul>
+<li>Easy to install (put the files, open the page)</li>
+<li>No database required.</li>
+<li>FAST</li>
+<li>Brain-dead easy to use: Paste text, click “Send”, share the URL.</li>
+<li>Data compressed and encrypted in the browser before sending to server. Uses 256 bits AES.</li>
+<li>Server has zero knowledge of data being stored. Your data is safe even in case of server breach or seizure.1)</li>
+<li>Expiration: 10 minutes, 1 hour, 1 day, 1 month, 1 year, never or ”Burn after reading” (Destroyed when read).</li>
+<li>Syntax coloring for 54 languages (using <a href="http://softwaremaniacs.org/soft/highlight/en/">highlight.js</a>), supporting mixing (html/css/javascript).</li>
+<li>Automatic conversion of URLs into clickable links (http, https, ftp and magnet).</li>
+<li>Search engines are blind regarding paste content.</li>
+<li>Single button to clone an existing paste.</li>
+<li>Rate limiting: 10 seconds between each paste.</li>
+<li>Size limiting: 2 Mb per paste (of compressed and encrypted data - cleartext data can be larger).</li>
+</ul>
+
+<p><strong>Discussions:</strong></p>
+
+<ul>
+<li>You can enable discussion on each paste.</li>
+<li>Discussion is of course also encrypted/decrypted in the browser.</li>
+<li>Server cannot see comments content or nicknames.</li>
+<li>VisualHash on each post to identify IP addresses without revealing them. Same image = same IP. 2)</li>
+<li>With paste expiration, you can have ad-hoc short-lived discussion which will disappear in the void after expiration.</li>
+<li>Discussions cannot be indexed by search engines. Period.3)</li>
+<li>Send a link by email to a friend for private discussions which will leave no trace in your email box, will not be indexed by searchengines, will not be read by robots and will never be archived.</li>
+<li>Free software</li>
+<li>GitHub access to source code.</li>
+</ul>
+
+<p><strong>Upcoming features:</strong></p>
+
+<ul>
+<li>Syntax highligting.</li>
+<li>Password protection.</li>
+</ul>
+
+<h2>Requirements</h2>
+
+<p><strong>Server:</strong> </p>
+
+<ul>
+<li>php 5.2.6 or above.</li>
+<li>GD</li>
+<li>No database required.</li>
+</ul>
+
+<p><strong>Client:</strong></p>
+
+<ul>
+<li>A modern, javascript-capable browser (See FAQ for list of supported browsers).</li>
+</ul>
+
+<h2>Pros/Cons</h2>
+
+<h3>Benefits</h3>
+
+<ul>
+<li>Low server requirements, easy installation.</li>
+<li>Benevolent server admins can provide a service which protects their users privacy: text sharing and discussions.</li>
+<li>User data is protected even in case of server breach or seizure.</li>
+<li>Server admins cannot pro-actively moderate documents and (hopefuly) be held liable because they have no knowledge of data being shared and there is no searchengine.</li>
+<li>There is no public feed of google-indexable content (Google will not index documents except if you leak the URL).</li>
+<li>Admins can still remove a document upon injunction or infringement notice… but have no way to tell if the same document has been posted again.</li>
+<li>No advertising.</li>
+</ul>
+
+<h3>Drawbacks</h3>
+
+<ul>
+<li>Won't work if javascript is disabled.</li>
+<li>Users still have to trust the server regarding the respect of their privacy. ZeroBin won't protect the users against malicious servers.</li>
+<li>Won't protect against Man-in-the-middle attacks (eg. javascript substitution)</li>
+<li>Shitty look in Internet Explorer (but who cares?)</li>
+</ul>
+
+<h2>How does it work?</h2>
+
+<p>When <strong>pasting a text into ZeroBin</strong>:</p>
+
+<p><img src="https://raw.github.com/wiki/mattrude/ZeroBin/images/zerobin_figure_encryption.png" alt="Zerobin Encryption" title="" /></p>
+
+<ul>
+<li>You paste your text in the browser and click the “Send” button.</li>
+<li>A random 256 bits key is generated in the browser.</li>
+<li>Data is compressed and encrypted with AES using specialized javascript libraries.</li>
+<li>Encrypted data is sent to server and stored.</li>
+<li>The browser displays the final URL with the key.</li>
+<li>The key is never transmitted to the server, which therefore cannot decrypt data.</li>
+</ul>
+
+<p>When <strong>opening a ZeroBin URL</strong>:</p>
+
+<p><img src="https://raw.github.com/wiki/mattrude/ZeroBin/images/zerobin_figure_decryption.png" alt="zerobin decryption" title="" /></p>
+
+<ul>
+<li>The browser requests encrypted data from the server</li>
+<li>The decryption key is in the anchor part of the URL (#…) which is never sent to server.</li>
+<li>Data is decrypted in the browser using the key and displayed.</li>
+</ul>
+
+<h3>Sample URL</h3>
+
+<p>If you have a URL like: http://example.com/?7a5dd0979f712164#QdnCROuH9ebUXv3oBjBw3eOdb3y9p5nEAkUJZBxg=</p>
+
+<ul>
+<li><strong>7a5dd0979f712164</strong> is the paste identifier.</li>
+<li><strong>QdnCROuH9ebUXv3oBjBw3eOdb3y9p5nEAkUJZBxg=</strong> is the decryption key. It is never sent to the server.</li>
+</ul>
+
+<h2>License</h2>
+
+<pre><code>Copyright (c) 2013 Sébastien SAUVAGE (sebsauvage.net)
+Copyright (c) 2013 Matt Rude (mattrude.com)
+
+This software is provided 'as-is', without any express or implied warranty.
+In no event will the authors be held liable for any damages arising from 
+the use of this software.
+
+Permission is granted to anyone to use this software for any purpose, 
+including commercial applications, and to alter it and redistribute it 
+freely, subject to the following restrictions:
+
+1. The origin of this software must not be misrepresented; you must 
+   not claim that you wrote the original software. If you use this 
+   software in a product, an acknowledgment in the product documentation
+   would be appreciated but is not required.
+
+2. Altered source versions must be plainly marked as such, and must 
+   not be misrepresented as being the original software.
+
+3. This notice may not be removed or altered from any source distribution.
+</code></pre>
+
+		<!-- Starting Comments Section -->
+		<script type='text/javascript'>
+	        var idcomments_acct = '4f5b5827534ac8f56be532bc26aab3bf';
+	        var idcomments_post_id;
+	        var idcomments_post_url;
+		</script>
+		<span id="IDCommentsPostTitle" style="display:none"></span>
+		<script type='text/javascript' src='http://www.intensedebate.com/js/genericCommentWrapperV2.js'></script>
+		<!-- Finished Comments Section -->
+		<!-- Starting Footer Section -->
+		<div id="footer">
+			<div class="footer-left">
+				<p><a href='/'>Home</a> | <a href='http://github.com/mattrude/'>Github Project List</a> | <a href='https://github.com/mattrude/ZeroBin'>Source</a> | <a href='https://github.com/mattrude/ZeroBin/issues'>Issues</a></p>
+			</div>
+			<div class="footer-right">
+				<p>Copyright &copy; 2009 &mdash; 2013 by <a href='http://mattrude.com'>Matt Rude</a></p>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
