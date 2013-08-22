@@ -6,7 +6,7 @@
 	 http://gh.mattrude.com -->
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title>gh.mattrude.com / ZeroBin </title>
+	<title>gh.mattrude.com / Home</title>
 	<link rel="stylesheet" type="text/css" href="http://mattrude.github.com/style.css" />
 	<link rel="icon" href="http://gh.mattrude.com/favicon.ico" type="image/x-icon" />
     <script type="text/javascript">
@@ -26,21 +26,22 @@
 <body>
 <div id="content"><div id="primary" class="main">
 <!-- Finished Header Section -->
-<div id="title"><h1>ZeroBin  <i> &mdash; </i> gh.mattrude.com</h1></div><div id="breadcrums"><p><a href="/">gh.mattrude.com</a> / <strong>ZeroBin </strong></p></div>
+<div id="title"><h1>Home <i> &mdash; </i> gh.mattrude.com/ZeroBin</h1></div>
+<div id="breadcrums"><p><a href="/">gh.mattrude.com</a> / <a href="/ZeroBin">ZeroBin</a> / wiki / <strong>Home</strong></p></div>
+<h1>ZeroBin</h1>
+
+<h3>THIS IS ALPHA SOFTWARE - USE AT YOUR OWN RISKS</h3>
 
 <p>Version: <strong>0.18 Alpha</strong></p>
-
-<p><strong>THIS IS ALPHA SOFTWARE - USE AT YOUR OWN RISKS</strong></p>
 
 <p>ZeroBin is a minimalist, opensource online pastebin where the server 
 has zero knowledge of pasted data. Data is encrypted/decrypted in the 
 browser using 256 bits AES. </p>
 
-<p><img src="https://raw.github.com/wiki/mattrude/ZeroBin/images/zerobin_present_textshare.png" alt="Zerobin Text Screenshot" title="" /></p>
+<p><img src="wiki/images/zerobin_present_textshare.png" alt="Zerobin Text Screenshot" title="" /></p>
 
 <ul>
-<li><em>More information may be found in the project's <a href="http://gh.mattrude.com/ZeroBin/wiki/Home">wiki</a>, or within it's <a href="https://github.com/mattrude/ZeroBin/blob/master/CHANGELOG.md#zerobin-version-history">changelog</a>.</em></li>
-<li><a href="http://gh.mattrude.com/ZeroBin/wiki/Screen-Shots">Screen Shots</a> are also avalable, so you can see what ZeroBin looks like.</li>
+<li><em>More information may be found in the project's [[FAQ]], or within it's <a href="https://github.com/mattrude/ZeroBin/blob/master/CHANGELOG.md">changelog</a>, also please see the [[Screen Shots]] page to see what it looks like.</em></li>
 </ul>
 
 <h2>Features</h2>
@@ -53,17 +54,12 @@ browser using 256 bits AES. </p>
 <li>Data compressed and encrypted in the browser before sending to server. Uses 256 bits AES.</li>
 <li>Server has zero knowledge of data being stored. Your data is safe even in case of server breach or seizure.1)</li>
 <li>Expiration: 10 minutes, 1 hour, 1 day, 1 month, 1 year, never or ”Burn after reading” (Destroyed when read).</li>
-<li>Syntax coloring for 54 languages (using <a href="http://softwaremaniacs.org/soft/highlight/en/">highlight.js</a>), supporting mixing (html/css/javascript).</li>
 <li>Automatic conversion of URLs into clickable links (http, https, ftp and magnet).</li>
 <li>Search engines are blind regarding paste content.</li>
 <li>Single button to clone an existing paste.</li>
 <li>Rate limiting: 10 seconds between each paste.</li>
 <li>Size limiting: 2 Mb per paste (of compressed and encrypted data - cleartext data can be larger).</li>
-</ul>
-
-<p><strong>Discussions:</strong></p>
-
-<ul>
+<li>Discussions:</li>
 <li>You can enable discussion on each paste.</li>
 <li>Discussion is of course also encrypted/decrypted in the browser.</li>
 <li>Server cannot see comments content or nicknames.</li>
@@ -125,7 +121,7 @@ browser using 256 bits AES. </p>
 
 <p>When <strong>pasting a text into ZeroBin</strong>:</p>
 
-<p><img src="https://raw.github.com/wiki/mattrude/ZeroBin/images/zerobin_figure_encryption.png" alt="Zerobin Encryption" title="" /></p>
+<p><img src="wiki/images/zerobin_figure_encryption.png" alt="Zerobin Encryption" title="" /></p>
 
 <ul>
 <li>You paste your text in the browser and click the “Send” button.</li>
@@ -138,7 +134,7 @@ browser using 256 bits AES. </p>
 
 <p>When <strong>opening a ZeroBin URL</strong>:</p>
 
-<p><img src="https://raw.github.com/wiki/mattrude/ZeroBin/images/zerobin_figure_decryption.png" alt="zerobin decryption" title="" /></p>
+<p><img src="wiki/images/zerobin_figure_decryption.png" alt="zerobin decryption" title="" /></p>
 
 <ul>
 <li>The browser requests encrypted data from the server</li>
@@ -157,8 +153,7 @@ browser using 256 bits AES. </p>
 
 <h2>License</h2>
 
-<pre><code>Copyright (c) 2013 Sébastien SAUVAGE (sebsauvage.net)
-Copyright (c) 2013 Matt Rude (mattrude.com)
+<pre><code>Copyright (c) 2012 Sébastien SAUVAGE (sebsauvage.net)
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from 
@@ -178,20 +173,10 @@ freely, subject to the following restrictions:
 
 3. This notice may not be removed or altered from any source distribution.
 </code></pre>
-
-		<!-- Starting Comments Section -->
-		<script type='text/javascript'>
-	        var idcomments_acct = '4f5b5827534ac8f56be532bc26aab3bf';
-	        var idcomments_post_id;
-	        var idcomments_post_url;
-		</script>
-		<span id="IDCommentsPostTitle" style="display:none"></span>
-		<script type='text/javascript' src='http://www.intensedebate.com/js/genericCommentWrapperV2.js'></script>
-		<!-- Finished Comments Section -->
 		<!-- Starting Footer Section -->
 		<div id="footer">
 			<div class="footer-left">
-				<p><a href='/'>Home</a> | <a href='http://github.com/mattrude/'>Github Project List</a> | <a href='https://github.com/mattrude/ZeroBin'>Source</a> | <a href='https://github.com/mattrude/ZeroBin/issues'>Issues</a></p>
+				<p><a href='/'>Home</a> | <a href='http://github.com/mattrude/'>Github Project List</a> | <a href='https://github.com/mattrude/###SOURCE###'>Source</a> | <a href='https://github.com/mattrude/###SOURCE###/issues'>Issues</a></p>
 			</div>
 			<div class="footer-right">
 				<p>Copyright &copy; 2009 &mdash; 2013 by <a href='http://mattrude.com'>Matt Rude</a></p>
