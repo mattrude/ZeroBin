@@ -559,11 +559,27 @@ function pageKey() {
     return key;
 }
 
-$(function() {
+/**
+ * Force browser to return to script location
+ */
+function goHome()
+{
+    window.location.href = scriptLocation();
+}
 
-    // If "burn after reading" is checked, disable discussion.
-    $('input#burnafterreading').change(function() {
-        if ($(this).is(':checked') ) { 
+/**
+ * @param string id DOM element idientifier to be clicked
+ * @param function callback function to be triggered by click
+ */
+function addClickEvent(id, callback)
+{
+    document.getElementById(id).addEventListener('click', callback);
+}
+
+$(function() {
+    
+    function onBurnAfterReadingCheckboxChange() {
+        if ($("input#burnafterreading").is(':checked') ) { 
             $('div#opendisc').addClass('buttondisabled');
             $('input#opendiscussion').attr({checked: false});
             $('input#opendiscussion').attr('disabled',true);
@@ -572,7 +588,13 @@ $(function() {
             $('div#opendisc').removeClass('buttondisabled');
             $('input#opendiscussion').removeAttr('disabled');
         }
-    });
+    }
+
+    // If "burn after reading" is checked, disable discussion.
+    $('input#burnafterreading').change(onBurnAfterReadingCheckboxChange);
+    
+    // ...it might be enabled or disabled by default
+    onBurnAfterReadingCheckboxChange();
 
     // Display status returned by php code if any (eg. Paste was properly deleted.)
     if ($('div#status').text().length > 0) {
@@ -580,6 +602,12 @@ $(function() {
         return;
     }
 
+    // Add event handlers on buttons
+    addClickEvent('title', goHome);
+    addClickEvent('newbutton', goHome);
+    addClickEvent('sendbutton', send_data);
+    addClickEvent('clonebutton', clonePaste);
+    addClickEvent('rawtextbutton', rawText);
     $('div#status').html('&nbsp;'); // Keep line height even if content empty.
 
     // Display an existing paste
