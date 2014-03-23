@@ -9,11 +9,8 @@ html  {
 background-color:#455463;
 color:white;
 min-height:100%;
-background-image: linear-gradient(bottom, #0F1823 0%, #455463 100%);
-background-image: -o-linear-gradient(bottom, #0F1823 0%, #455463 100%);
-background-image: -moz-linear-gradient(bottom, #0F1823 0%, #455463 100%);
+background-image: linear-gradient(to top, #0F1823, #455463);
 background-image: -webkit-linear-gradient(bottom, #0F1823 0%, #455463 100%);
-background-image: -ms-linear-gradient(bottom, #0F1823 0%, #455463 100%);
 background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #0F1823), color-stop(1, #455463));
 }
 
@@ -101,8 +98,6 @@ background-color:#1F2833;
 color:white;
 padding:4px 12px; 
 clear:both;
--moz-box-shadow: inset 0px 2px 2px #000;
--webkit-box-shadow: inset 0px 2px 2px #000;
 box-shadow: inset 0px 2px 5px #000;
 }
 div#pasteresult a { color:white; }
@@ -120,35 +115,22 @@ padding:4px 8px;
 font-size:1em;
 margin-right:5px;
 display:inline;
-background-image: linear-gradient(bottom, #323B47 0%, #51606E 100%);
-background-image: -o-linear-gradient(bottom, #323B47 0%, #51606E 100%);
-background-image: -moz-linear-gradient(bottom, #323B47 0%, #51606E 100%);
+background-image: linear-gradient(to top, #323B47, #51606E);
 background-image: -webkit-linear-gradient(bottom, #323B47 0%, #51606E 100%);
-background-image: -ms-linear-gradient(bottom, #323B47 0%, #51606E 100%);
 background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #323B47), color-stop(1, #51606E));
 border: 1px solid #28343F;
--moz-box-shadow: inset 0px 1px 2px #647384;
--webkit-box-shadow: inset 0px 1px 2px #647384;
 box-shadow: inset 0px 1px 2px #647384;
--webkit-border-radius: 3px;
--moz-border-radius: 3px;
 border-radius: 3px;
 -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
 }
-button:hover  { 
-background-image: linear-gradient(bottom, #424B57 0%, #61707E 100%);
-background-image: -o-linear-gradient(bottom, #424B57 0%, #61707E 100%);
-background-image: -moz-linear-gradient(bottom, #424B57 0%, #61707E 100%);
+button:hover { 
+background-image: linear-gradient(to top, #424B57, #61707E);
 background-image: -webkit-linear-gradient(bottom, #424B57 0%, #61707E 100%);
-background-image: -ms-linear-gradient(bottom, #424B57 0%, #61707E 100%);
 background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #424B57), color-stop(1, #61707E));
 }
 button:active {
-background-image: linear-gradient(bottom, #51606E 0%, #323B47 100%);
-background-image: -o-linear-gradient(bottom, #51606E 0%, #323B47 100%);
-background-image: -moz-linear-gradient(bottom, #51606E 0%, #323B47 100%);
+background-image: linear-gradient(to top, #51606E, #323B47);
 background-image: -webkit-linear-gradient(bottom, #51606E 0%, #323B47 100%);
-background-image: -ms-linear-gradient(bottom, #51606E 0%, #323B47 100%);
 background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #51606E), color-stop(1, #323B47));
 position:relative;
 top:1px;
@@ -206,8 +188,6 @@ width:100%;
 text-align:center;
 font-weight:bold;
 font-size:10pt;
--webkit-border-radius:4px;
--moz-border-radius:4px;
 border-radius:4px;
 padding:5px;
 }
@@ -218,8 +198,6 @@ color:#000;
 font-size:0.85em;
 padding:3px 5px;
 text-align:center;
--webkit-border-radius:4px;
--moz-border-radius:4px;
 border-radius:4px;
 display:none;
 }
@@ -257,7 +235,6 @@ position:relative;
 margin-left:30px;
 }
 
-
 div.comment /* One single reply */
 {
 background-color:#CECED6;
@@ -269,8 +246,6 @@ border-left: 1px solid #859AAE;
 border-top: 1px solid #859AAE;
 padding:5px 0px 5px 5px;
 margin-left:30px;
--moz-box-shadow: -3px -3px 5px rgba(0,0,0,0.15);
--webkit-box-shadow: -3px -3px 5px rgba(0,0,0,0.15);
 box-shadow: -3px -3px 5px rgba(0,0,0,0.15);
 min-width:200px;
 overflow:auto;
@@ -296,35 +271,22 @@ padding:0px 2px;
 font-size:0.73em;
 margin: 3px 5px 3px 0px;
 display:inline;
-background-image: linear-gradient(bottom, #aab 0%, #ccc 100%);
-background-image: -o-linear-gradient(bottom, #aab 0%, #ccc 100%);
-background-image: -moz-linear-gradient(bottom, #aab 0%, #ccc 100%);
+background-image: linear-gradient(to top, #aab, #ccc);
 background-image: -webkit-linear-gradient(bottom, #aab 0%, #ccc 100%);
-background-image: -ms-linear-gradient(bottom, #aab 0%, #ccc 100%);
 background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #aab), color-stop(1, #ccc));
 border: 1px solid #ccd;
--moz-box-shadow: inset 0px 1px 2px #ddd;
--webkit-box-shadow: inset 0px 1px 2px #fff;
 box-shadow: inset 0px 1px 2px #eee;
--webkit-border-radius: 3px;
--moz-border-radius: 3px;
 border-radius: 3px;
 -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box;
 }
 div.comment button:hover  { 
-background-image: linear-gradient(bottom, #ccd 0%, #fff 100%);
-background-image: -o-linear-gradient(bottom, #ccd 0%, #fff 100%);
+background-image: linear-gradient(to top, #ccd, #fff);
 background-image: -moz-linear-gradient(bottom, #ccd 0%, #fff 100%);
-background-image: -webkit-linear-gradient(bottom, #ccd 0%, #fff 100%);
-background-image: -ms-linear-gradient(bottom, #ccd 0%, #fff 100%);
 background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #ccd), color-stop(1, #fff));
 }
 div.comment button:active {
-background-image: linear-gradient(bottom, #fff 0%, #889 100%);
-background-image: -o-linear-gradient(bottom, #fff 0%, #889 100%);
-background-image: -moz-linear-gradient(bottom, #fff 0%, #889 100%);
+background-image: linear-gradient(to top, #fff, #889);
 background-image: -webkit-linear-gradient(bottom, #fff 0%, #889 100%);
-background-image: -ms-linear-gradient(bottom, #fff 0%, #889 100%);
 background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0, #fff), color-stop(1, #889));
 position:relative;
 top:1px;
@@ -364,5 +326,3 @@ color:#58A5B4;
 pre a:hover {
 color:#64B9C6;
 }
-
-

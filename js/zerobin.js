@@ -189,6 +189,12 @@ function applySyntaxColoring()
  * @param string key : decryption key
  * @param array comments : Array of messages to display (items = array with keys ('data','meta')
  */
+/**
+ * Show decrypted text in the display area, including discussion (if open)
+ *
+ * @param string key : decryption key
+ * @param array comments : Array of messages to display (items = array with keys ('data','meta')
+ */
 function displayMessages(key, comments) {
     try { // Try to decrypt the paste.
         var cleartext = zeroDecipher(key, comments[0].data);
@@ -230,10 +236,12 @@ function displayMessages(key, comments) {
             if ($(cname).length) {
                 place = $(cname);
             }
+
             var divComment = $('<div class="comment" id="comment_' + comment.meta.commentid+'">'
                                + '<div class="commentmeta"><span class="nickname"></span><span class="commentdate"></span></div><div class="commentdata"></div>'
-                               + '<button onclick="open_reply($(this),\'' + comment.meta.commentid + '\');return false;">Reply</button>'
+                               + '<button id="replyToComm' + comment.meta.commentid + '">Reply</button>'
                                + '</div>');
+
             setElementText(divComment.find('div.commentdata'), cleartext);
             // Convert URLs to clickable links in comment.
             urls2links(divComment.find('div.commentdata'));
@@ -251,9 +259,13 @@ function displayMessages(key, comments) {
             }
 
             place.append(divComment);
+            addClickEvent('replyToComm' + comment.meta.commentid, function(e){ open_reply(e.target, comment.meta.commentid); } );
         }
-        $('div#comments').append('<div class="comment"><button onclick="open_reply($(this),\'' + pasteID() + '\');return false;">Add comment</button></div>');
+
+        $('div#comments').append('<div class="comment"><button id=openreplybutton>Add comment</button></div>');
         $('div#discussion').show();
+
+        addClickEvent('openreplybutton', function(e){ open_reply(e.target, pasteID()); } );
     }
 }
 
@@ -264,10 +276,10 @@ function displayMessages(key, comments) {
  */
 function open_reply(source, commentid) {
     $('div.reply').remove(); // Remove any other reply area.
-    source.after('<div class="reply">'
+    $(source).after('<div class="reply">'
                 + '<input type="text" id="nickname" title="Optional nickname..." value="Optional nickname..." />'
                 + '<textarea id="replymessage" class="replymessage" cols="80" rows="7"></textarea>'
-                + '<br><button id="replybutton" onclick="send_comment(\'' + commentid + '\');return false;">Post comment</button>'
+                + '<br><button id="replybutton">Post comment</button>'
                 + '<div id="replystatus">&nbsp;</div>'
                 + '</div>');
     $('input#nickname').focus(function() {
@@ -276,6 +288,9 @@ function open_reply(source, commentid) {
             $(this).val('');
         }
     });
+
+    addClickEvent('replybutton', function(){ send_comment(commentid); });
+
     $('textarea#replymessage').focus();
 }
 
@@ -558,11 +573,27 @@ function pageKey() {
     return key;
 }
 
-$(function() {
+/**
+ * Force browser to return to script location
+ */
+function goHome()
+{
+    window.location.href = scriptLocation();
+}
 
-    // If "burn after reading" is checked, disable discussion.
-    $('input#burnafterreading').change(function() {
-        if ($(this).is(':checked') ) { 
+/**
+ * @param string id DOM element idientifier to be clicked
+ * @param function callback function to be triggered by click
+ */
+function addClickEvent(id, callback)
+{
+    document.getElementById(id).addEventListener('click', callback);
+}
+
+$(function() {
+    
+    function onBurnAfterReadingCheckboxChange() {
+        if ($("input#burnafterreading").is(':checked') ) { 
             $('div#opendisc').addClass('buttondisabled');
             $('input#opendiscussion').attr({checked: false});
             $('input#opendiscussion').attr('disabled',true);
@@ -571,7 +602,13 @@ $(function() {
             $('div#opendisc').removeClass('buttondisabled');
             $('input#opendiscussion').removeAttr('disabled');
         }
-    });
+    }
+
+    // If "burn after reading" is checked, disable discussion.
+    $('input#burnafterreading').change(onBurnAfterReadingCheckboxChange);
+    
+    // ...it might be enabled or disabled by default
+    onBurnAfterReadingCheckboxChange();
 
     // Display status returned by php code if any (eg. Paste was properly deleted.)
     if ($('div#status').text().length > 0) {
@@ -579,6 +616,12 @@ $(function() {
         return;
     }
 
+    // Add event handlers on buttons
+    addClickEvent('title', goHome);
+    addClickEvent('newbutton', goHome);
+    addClickEvent('sendbutton', send_data);
+    addClickEvent('clonebutton', clonePaste);
+    addClickEvent('rawtextbutton', rawText);
     $('div#status').html('&nbsp;'); // Keep line height even if content empty.
 
     // Display an existing paste
